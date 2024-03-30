@@ -11,6 +11,8 @@ public class Machine {
     }
 
     public void spinWheel() {
+        player.checkForSufficientCoins();
+
         System.out.println("Spinning wheel...");
 
         //everytime player spins, it costs 5 coins
