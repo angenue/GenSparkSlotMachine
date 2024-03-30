@@ -10,7 +10,7 @@ public class Machine {
     public Machine() {
     }
 
-    public void spinWheel() {
+    public void spinWheel() throws Player.InsufficientFundsException {
         player.checkForSufficientCoins();
 
         System.out.println("Spinning wheel...");
@@ -35,11 +35,11 @@ public class Machine {
 
         System.out.println();
 
-        winningCombinations(result);
+        System.out.println(winningCombinations(result));
     }
 
     //TODO: methods for winning combinations
-    private void winningCombinations(Symbol[] symbols) {
+    private String winningCombinations(Symbol[] symbols) {
         //if three of the same fruit then you win
         //if one or more sevens you win
         int sevenCount = 0;
@@ -61,27 +61,28 @@ public class Machine {
             }
         }
 
+        String winningLine = "";
+
         if(sevenCount == 3) {
-            System.out.println("JACKPOT!! You win 30 coins");
+            winningLine = "JACKPOT!! You win 30 coins";
             coinsWon = 30;
         } else if (sevenCount == 2) {
-            System.out.println("Congrats, you got two 7's. You won 4 coins.");
+            winningLine ="Congrats, you got two 7's. You won 4 coins.";
             coinsWon = 4;
         }
         else if (sevenCount == 1) {
-            System.out.println("You got one 7. You won 1 coin.");
+            winningLine="You got one 7. You won 1 coin.";
             coinsWon = 1;
         }else if(watermelonCount == 3 || orangeCount == 3 || grapeCount == 3 || cherryCount == 3 || bananaCount ==3) {
-            System.out.println("Congrats, you got three of the same fruit. You won 10 coins.");
+            winningLine ="Congrats, you got three of the same fruit. You won 10 coins.";
             coinsWon = 10;
         }
         else {
-            System.out.println("Better luck next time :(");
+            winningLine="Better luck next time :(";
         }
 
-        System.out.println();
         player.setAmountOfCash(player.getAmountOfCash() + coinsWon);
-        System.out.println("Coins: " + player.getAmountOfCash());
-        System.out.println();
+
+        return winningLine;
     }
 }

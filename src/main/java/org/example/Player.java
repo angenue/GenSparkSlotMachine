@@ -14,10 +14,17 @@ public class Player {
         this.amountOfCash = amountOfCash;
     }
 
-    public void checkForSufficientCoins()  {
-        if(this.amountOfCash < 5) {
+    public void checkForSufficientCoins() throws InsufficientFundsException {
+        if (this.amountOfCash < 5) {
             System.out.println("Insufficient funds. You need more than 5 coins to play.");
-            System.exit(0);
+            throw new InsufficientFundsException("Insufficient funds. You need more than 5 coins to play.");
         }
     }
+
+    public static class InsufficientFundsException extends Exception {
+        public InsufficientFundsException(String message) {
+            super(message);
+        }
+    }
+
 }
