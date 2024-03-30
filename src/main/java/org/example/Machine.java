@@ -6,6 +6,7 @@ import java.util.Random;
 public class Machine {
     private final Symbol[] SYMBOLS = Symbol.values();
     private Player player = new Player();
+    private Random random = new Random();
 
     public Machine() {
     }
@@ -15,30 +16,29 @@ public class Machine {
 
         System.out.println("Spinning wheel...");
 
-        //everytime player spins, it costs 5 coins
+        // Every time player spins, it costs 5 coins
         player.setAmountOfCash(player.getAmountOfCash() - 5);
         System.out.println();
         System.out.println("Coins: " + player.getAmountOfCash());
 
-        //generate array with random symbols every spin
-        Symbol[] result = new Symbol[3];
-
-        Random random = new Random();
-
-        for(int i = 0; i < 3; i++) {
-            result[i] = SYMBOLS[random.nextInt(SYMBOLS.length)];
-        }
+        // Generate array with random symbols
+        Symbol[] result = generateRandomSymbols();
+        System.out.println();
+        System.out.println("Symbols: " + Arrays.toString(result)); // Print out the generated symbols
 
         System.out.println();
-
-        System.out.println(Arrays.toString(result));
-
-        System.out.println();
-
         System.out.println(winningCombinations(result));
     }
 
-    //TODO: methods for winning combinations
+    private Symbol[] generateRandomSymbols() {
+        Symbol[] result = new Symbol[3];
+        for(int i = 0; i < 3; i++) {
+            result[i] = SYMBOLS[random.nextInt(SYMBOLS.length)];
+        }
+        return result;
+    }
+
+
     private String winningCombinations(Symbol[] symbols) {
         //if three of the same fruit then you win
         //if one or more sevens you win
@@ -61,7 +61,7 @@ public class Machine {
             }
         }
 
-        String winningLine = "";
+        String winningLine;
 
         if(sevenCount == 3) {
             winningLine = "JACKPOT!! You win 30 coins";
@@ -84,5 +84,17 @@ public class Machine {
         player.setAmountOfCash(player.getAmountOfCash() + coinsWon);
 
         return winningLine;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
