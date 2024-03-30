@@ -4,15 +4,18 @@ import java.util.Random;
 
 public class Machine {
     private final Symbol[] SYMBOLS = Symbol.values();
+    private Player player = new Player();
 
     public Machine() {
     }
 
     public Symbol[] spinWheel() {
-        //everytime player spins, it costs 5 coins
-        Player player = new Player();
-        player.setAmountOfCash(player.getAmountOfCash() - 5);
+        System.out.println("Spinning wheel...");
 
+        //everytime player spins, it costs 5 coins
+        player.setAmountOfCash(player.getAmountOfCash() - 5);
+        System.out.println("Coins: " + player.getAmountOfCash());
+        
         //generate array with random symbols every spin
         Symbol[] result = new Symbol[3];
 
@@ -25,6 +28,7 @@ public class Machine {
         int coinsWon = winningCombinations(result);
 
         player.setAmountOfCash(player.getAmountOfCash() + coinsWon);
+        System.out.println("Coins: " + player.getAmountOfCash());
 
         return result;
     }
