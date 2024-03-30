@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Machine {
@@ -9,13 +10,14 @@ public class Machine {
     public Machine() {
     }
 
-    public Symbol[] spinWheel() {
+    public void spinWheel() {
         System.out.println("Spinning wheel...");
 
         //everytime player spins, it costs 5 coins
         player.setAmountOfCash(player.getAmountOfCash() - 5);
+        System.out.println();
         System.out.println("Coins: " + player.getAmountOfCash());
-        
+
         //generate array with random symbols every spin
         Symbol[] result = new Symbol[3];
 
@@ -25,16 +27,17 @@ public class Machine {
             result[i] = SYMBOLS[random.nextInt(SYMBOLS.length)];
         }
 
-        int coinsWon = winningCombinations(result);
+        System.out.println();
 
-        player.setAmountOfCash(player.getAmountOfCash() + coinsWon);
-        System.out.println("Coins: " + player.getAmountOfCash());
+        System.out.println(Arrays.toString(result));
 
-        return result;
+        System.out.println();
+
+        winningCombinations(result);
     }
 
     //TODO: methods for winning combinations
-    private int winningCombinations(Symbol[] symbols) {
+    private void winningCombinations(Symbol[] symbols) {
         //if three of the same fruit then you win
         //if one or more sevens you win
         int sevenCount = 0;
@@ -74,6 +77,9 @@ public class Machine {
             System.out.println("Better luck next time :(");
         }
 
-        return coinsWon;
+        System.out.println();
+        player.setAmountOfCash(player.getAmountOfCash() + coinsWon);
+        System.out.println("Coins: " + player.getAmountOfCash());
+        System.out.println();
     }
 }

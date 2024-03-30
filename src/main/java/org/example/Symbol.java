@@ -17,4 +17,9 @@ public enum Symbol {
         return symbol;
     }
 
+    @Override
+    public String toString() {
+        return symbol;
+    }
+
 }
